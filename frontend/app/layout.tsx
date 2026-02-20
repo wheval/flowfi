@@ -16,8 +16,9 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FlowFi Wallet Access",
-  description: "Select and connect a wallet to enter the FlowFi dApp",
+  title: "FlowFi | Real-time Payment Streams",
+  description:
+    "The trustless infrastructure to stream salaries, tokens, and rewards in real-time.",
 };
 
 export default function RootLayout({

@@ -1,15 +1,100 @@
 @import "tailwindcss";
 
 :root {
+  --background: #020617;
+  --foreground: #f8fafc;
+  --accent: #10b981;
+  --accent-hover: #059669;
+  --accent-secondary: #6366f1;
+  --accent-tertiary: #0ea5e9;
+  --glass: rgba(255, 255, 255, 0.02);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+
   --bg-sky: #eaf5ff;
   --bg-sand: #fff4e6;
   --text-main: #13263d;
   --text-muted: #4c617e;
   --surface: rgba(255, 255, 255, 0.8);
   --surface-border: rgba(19, 38, 61, 0.12);
-  --accent: #0f7a99;
+  --wallet-accent: #0f7a99;
   --accent-strong: #0d5378;
   --danger: #b12f3f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-tertiary: var(--accent-tertiary);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-glass-highlight: var(--glass-highlight);
+
+  --font-sans:
+    var(--font-display),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif;
+
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-up: slide-up 0.6s ease-out;
+  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  --shadow-glass:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 *,
@@ -23,6 +108,7 @@ body {
   min-height: 100vh;
   color: var(--text-main);
   font-family: var(--font-display), "Avenir Next", "Segoe UI", sans-serif;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at 14% 16%, #d2ecff 0%, transparent 37%),
     radial-gradient(circle at 84% 20%, #ffd8b7 0%, transparent 33%),
@@ -159,7 +245,11 @@ body {
   border: 0;
   border-radius: 0.75rem;
   height: 2.65rem;
-  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+  background: linear-gradient(
+    90deg,
+    var(--accent-strong),
+    var(--wallet-accent)
+  );
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 600;
@@ -262,7 +352,7 @@ body {
   height: 2.05rem;
   border-radius: 999px;
   margin: 0 auto 1rem;
-  background: linear-gradient(140deg, var(--accent), #ffba80);
+  background: linear-gradient(140deg, var(--wallet-accent), #ffba80);
   animation: pulse 920ms ease-in-out infinite alternate;
 }
 
@@ -629,4 +719,57 @@ body {
     opacity: 1;
     transform: scale(1.04);
   }
+}
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.glow-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glass-highlight),
+    transparent
+  );
+  z-index: 1;
+}
+
+.glow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, var(--accent), transparent 70%);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #10b981, #34d399, #0ea5e9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
